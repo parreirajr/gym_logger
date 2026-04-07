@@ -8,6 +8,8 @@ alwaysApply: true
 Auto-generated from all feature plans. Last updated: 2026-04-06
 
 ## Active Technologies
+- Flutter 3.x / Dart 3.x + `shared_preferences` (for potential future session state), `material_design_icons`. (002-user-login)
+- None for this phase (static credentials in memory validation). (002-user-login)
 
 - Flutter 3.x / Dart 3.x + shared_preferences (001-gym-logger-setup)
 
@@ -27,6 +29,7 @@ tests/
 Flutter 3.x / Dart 3.x: Follow standard conventions
 
 ## Recent Changes
+- 002-user-login: Added Flutter 3.x / Dart 3.x + `shared_preferences` (for potential future session state), `material_design_icons`.
 
 - 001-gym-logger-setup: Added Flutter 3.x / Dart 3.x + shared_preferences
 
