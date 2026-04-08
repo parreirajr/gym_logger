@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../domain/models/workout_model.dart';
 import '../widgets/workout_tile.dart';
+import '../routes.dart';
 
 /// The main home screen of the GymLogger application.
 ///
@@ -29,29 +30,38 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
-  /// Stub for editing a workout. Will be implemented as a full form in a
-  /// future feature iteration.
-  void _editWorkout(Workout workout) {
-    // TODO: Navigate to edit form (future feature)
-    ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(content: Text('Edição disponível em breve.')),
+  /// Navigates to the workout form to edit an existing [workout].
+  Future<void> _editWorkout(Workout workout) async {
+    final result = await Navigator.pushNamed(
+      context,
+      AppRoutes.workoutForm,
+      arguments: workout,
     );
+
+    if (result != null && result is Workout) {
+      setState(() {
+        final index = _workouts.indexWhere((w) => w.id == workout.id);
+        if (index != -1) {
+          _workouts[index] = result;
+        }
+      });
+    }
   }
 
-  /// Adds a placeholder workout entry for MVP testing purposes.
-  /// Will be replaced by a proper add form in a future iteration.
-  void _addMockWorkout() {
-    final mockWorkout = Workout(
-      id: DateTime.now().millisecondsSinceEpoch.toString(),
-      exerciseName: 'Supino Reto',
-      load: 80.0,
-      repetitions: 10,
-      date: DateTime.now(),
+  /// Navigates to the workout form to create a new entry.
+  Future<void> _navigateToCreateForm() async {
+    final result = await Navigator.pushNamed(
+      context,
+      AppRoutes.workoutForm,
     );
-    setState(() {
-      _workouts.add(mockWorkout);
-    });
+
+    if (result != null && result is Workout) {
+      setState(() {
+        _workouts.insert(0, result); // Add newest at the top
+      });
+    }
   }
+
 
   // ──────────────────────────────────────────────
   // Build
@@ -65,7 +75,7 @@ class _HomePageState extends State<HomePage> {
       ),
       body: _workouts.isEmpty ? _buildEmptyState() : _buildWorkoutList(),
       floatingActionButton: FloatingActionButton(
-        onPressed: _addMockWorkout,
+        onPressed: _navigateToCreateForm,
         backgroundColor: const Color(0xFF7C4DFF),
         tooltip: 'Adicionar treino',
         child: const Icon(Icons.add_rounded, color: Colors.white, size: 28),
