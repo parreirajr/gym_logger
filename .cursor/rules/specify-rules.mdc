@@ -12,6 +12,8 @@ Auto-generated from all feature plans. Last updated: 2026-04-07
 - None for this phase (static credentials in memory validation). (002-user-login)
 - Flutter 3.x / Dart 3.x + None new required (uses standard Flutter material) (003-workout-list)
 - In-memory (List<Workout>) for MVP, eventually shared_preferences (003-workout-list)
+- Flutter 3.x / Dart 3.x + shared_preferences, material_design_icons (004-workout-form)
+- shared_preferences (JSON serialization) (004-workout-form)
 
 - Flutter 3.x / Dart 3.x + shared_preferences (001-gym-logger-setup)
 
@@ -31,10 +33,10 @@ tests/
 Flutter 3.x / Dart 3.x: Follow standard conventions
 
 ## Recent Changes
+- 004-workout-form: Added Flutter 3.x / Dart 3.x + shared_preferences, material_design_icons
 - 003-workout-list: Added Flutter 3.x / Dart 3.x + None new required (uses standard Flutter material)
 - 002-user-login: Added Flutter 3.x / Dart 3.x + `shared_preferences` (for potential future session state), `material_design_icons`.
 
-- 001-gym-logger-setup: Added Flutter 3.x / Dart 3.x + shared_preferences
 
 <!-- MANUAL ADDITIONS START -->
 <!-- MANUAL ADDITIONS END -->
