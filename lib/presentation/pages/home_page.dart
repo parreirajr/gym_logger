@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../domain/models/workout_model.dart';
 import '../widgets/workout_tile.dart';
+import '../widgets/delete_confirmation_dialog.dart';
 import '../routes.dart';
 import '../../data/services/workout_storage_service.dart';
 
@@ -46,11 +47,26 @@ class _HomePageState extends State<HomePage> {
   // ──────────────────────────────────────────────
 
   /// Removes the workout with the given [id] from the local list.
-  void _deleteWorkout(String id) {
-    setState(() {
-      _workouts.removeWhere((w) => w.id == id);
-    });
-    _saveWorkouts();
+  /// 
+  /// Displays a confirmation dialog before proceeding with the deletion.
+  Future<void> _deleteWorkout(String id) async {
+    final confirmed = await DeleteConfirmationDialog.show(context);
+    
+    if (confirmed) {
+      setState(() {
+        _workouts.removeWhere((w) => w.id == id);
+      });
+      _saveWorkouts();
+      
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Treino removido com sucesso.'),
+            duration: Duration(seconds: 2),
+          ),
+        );
+      }
+    }
   }
 
   /// Navigates to the workout form to edit an existing [workout].
