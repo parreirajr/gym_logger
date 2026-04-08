@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../../domain/models/workout_model.dart';
 import '../widgets/workout_tile.dart';
 import '../routes.dart';
+import '../../data/services/workout_storage_service.dart';
 
 /// The main home screen of the GymLogger application.
 ///
@@ -15,9 +16,30 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  /// In-memory list of workouts. Will be replaced by persistent storage in a
-  /// future iteration using shared_preferences (as planned in research.md).
-  final List<Workout> _workouts = [];
+  /// Instance of the persistence service.
+  final WorkoutStorageService _storageService = WorkoutStorageService();
+
+  /// In-memory list of workouts.
+  List<Workout> _workouts = [];
+
+  @override
+  void initState() {
+    super.initState();
+    _loadWorkouts();
+  }
+
+  /// Loads workouts from local storage on initialization.
+  Future<void> _loadWorkouts() async {
+    final workouts = await _storageService.loadWorkouts();
+    setState(() {
+      _workouts = workouts;
+    });
+  }
+
+  /// Persists the current list of workouts to local storage.
+  Future<void> _saveWorkouts() async {
+    await _storageService.saveWorkouts(_workouts);
+  }
 
   // ──────────────────────────────────────────────
   // Business logic methods (no logic inside build)
@@ -28,6 +50,7 @@ class _HomePageState extends State<HomePage> {
     setState(() {
       _workouts.removeWhere((w) => w.id == id);
     });
+    _saveWorkouts();
   }
 
   /// Navigates to the workout form to edit an existing [workout].
@@ -38,14 +61,7 @@ class _HomePageState extends State<HomePage> {
       arguments: workout,
     );
 
-    if (result != null && result is Workout) {
-      setState(() {
-        final index = _workouts.indexWhere((w) => w.id == workout.id);
-        if (index != -1) {
-          _workouts[index] = result;
-        }
-      });
-    }
+    _handleWorkoutResult(result as Workout?);
   }
 
   /// Navigates to the workout form to create a new entry.
@@ -55,11 +71,28 @@ class _HomePageState extends State<HomePage> {
       AppRoutes.workoutForm,
     );
 
-    if (result != null && result is Workout) {
-      setState(() {
-        _workouts.insert(0, result); // Add newest at the top
-      });
-    }
+    _handleWorkoutResult(result as Workout?);
+  }
+
+  /// Centralized logic to handle the result returned from the WorkoutFormPage.
+  ///
+  /// If [workout] is not null, it finds the existing item by [id] to update it,
+  /// or adds it as a new entry if not found.
+  void _handleWorkoutResult(Workout? workout) {
+    if (workout == null) return;
+
+    setState(() {
+      final index = _workouts.indexWhere((w) => w.id == workout.id);
+      if (index != -1) {
+        // Update existing workout (Edition)
+        _workouts[index] = workout;
+      } else {
+        // Add new workout at the top of the list (Addition)
+        _workouts.insert(0, workout);
+      }
+    });
+
+    _saveWorkouts();
   }
 
 
