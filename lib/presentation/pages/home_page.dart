@@ -3,7 +3,7 @@ import '../../domain/models/workout_model.dart';
 import '../widgets/workout_tile.dart';
 import '../widgets/delete_confirmation_dialog.dart';
 import '../routes.dart';
-import '../../data/services/workout_storage_service.dart';
+import '../../data/services/workout_service.dart';
 
 /// The main home screen of the GymLogger application.
 ///
@@ -18,7 +18,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   /// Instance of the persistence service.
-  final WorkoutStorageService _storageService = WorkoutStorageService();
+  final WorkoutService _storageService = WorkoutService();
 
   /// In-memory list of workouts.
   List<Workout> _workouts = [];

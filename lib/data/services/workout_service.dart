@@ -7,7 +7,7 @@ import '../../domain/models/workout_model.dart';
 /// Follows the Gym Logger constitution:
 /// - JSON serialization for storage.
 /// - Single responsibility for persistence.
-class WorkoutStorageService {
+class WorkoutService {
   static const String _storageKey = 'gym_logger_workouts';
 
   /// Saves the entire list of [workouts] to local storage.
@@ -45,5 +45,5 @@ class WorkoutStorageService {
 /// Simple helper to avoid import issues with debugPrint if not provided by material.
 void debugPrint(String message) {
   // ignore: avoid_print
-  print('[WorkoutStorageService] $message');
+  print('[WorkoutService] $message');
 }
