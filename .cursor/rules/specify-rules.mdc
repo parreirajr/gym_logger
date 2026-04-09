@@ -5,7 +5,7 @@ alwaysApply: true
 ---
 # gym_logger Development Guidelines
 
-Auto-generated from all feature plans. Last updated: 2026-04-07
+Auto-generated from all feature plans. Last updated: 2026-04-08
 
 ## Active Technologies
 - Flutter 3.x / Dart 3.x + `shared_preferences` (for potential future session state), `material_design_icons`. (002-user-login)
@@ -16,6 +16,8 @@ Auto-generated from all feature plans. Last updated: 2026-04-07
 - shared_preferences (JSON serialization) (004-workout-form)
 - Flutter 3.x / Dart 3.x + shared_preferences (already included) (005-description-atualiza-de)
 - Flutter 3.x / Dart 3.x + shared_preferences (already implemented) (006-delete-workout-record)
+- Flutter 3.x / Dart 3.x + `shared_preferences`, `dart:convert` (007-workout-persistence)
+- `shared_preferences` (JSON string storage) (007-workout-persistence)
 
 - Flutter 3.x / Dart 3.x + shared_preferences (001-gym-logger-setup)
 
@@ -35,9 +37,9 @@ tests/
 Flutter 3.x / Dart 3.x: Follow standard conventions
 
 ## Recent Changes
+- 007-workout-persistence: Added Flutter 3.x / Dart 3.x + `shared_preferences`, `dart:convert`
 - 006-delete-workout-record: Added Flutter 3.x / Dart 3.x + shared_preferences (already implemented)
 - 005-description-atualiza-de: Added Flutter 3.x / Dart 3.x + shared_preferences (already included)
-- 004-workout-form: Added Flutter 3.x / Dart 3.x + shared_preferences, material_design_icons
 
 
 <!-- MANUAL ADDITIONS START -->
