@@ -4,6 +4,7 @@ import '../widgets/workout_tile.dart';
 import '../widgets/delete_confirmation_dialog.dart';
 import '../routes.dart';
 import '../../data/services/workout_service.dart';
+import '../../data/services/auth_service.dart';
 
 /// The main home screen of the GymLogger application.
 ///
@@ -40,6 +41,14 @@ class _HomePageState extends State<HomePage> {
   /// Persists the current list of workouts to local storage.
   Future<void> _saveWorkouts() async {
     await _storageService.saveWorkouts(_workouts);
+  }
+
+  /// Clears the authentication session and returns to the login screen.
+  Future<void> _handleLogout() async {
+    await AuthService.setLoggedIn(false);
+    if (mounted) {
+      Navigator.pushReplacementNamed(context, AppRoutes.root);
+    }
   }
 
   // ──────────────────────────────────────────────
@@ -121,6 +130,13 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('MEUS TREINOS'),
+        actions: [
+          IconButton(
+            onPressed: _handleLogout,
+            icon: const Icon(Icons.logout_rounded),
+            tooltip: 'Sair',
+          ),
+        ],
       ),
       body: _workouts.isEmpty ? _buildEmptyState() : _buildWorkoutList(),
       floatingActionButton: FloatingActionButton(

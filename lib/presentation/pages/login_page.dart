@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../data/services/auth_service.dart';
 import '../../domain/models/login_credentials.dart';
 import '../../domain/validators/login_validator.dart';
 import '../routes.dart';
@@ -29,7 +30,7 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   /// Handles the login action by invoking the validator and navigating on success (T009, T010).
-  void _handleLogin() {
+  void _handleLogin() async {
     final username = _usernameController.text;
     final password = _passwordController.text;
 
@@ -44,8 +45,13 @@ class _LoginPageState extends State<LoginPage> {
     final credentials = LoginCredentials(username: username, password: password);
     
     if (LoginValidator.validate(credentials)) {
+      // Success: Save session status before navigating
+      await AuthService.setLoggedIn(true);
+
       // Success: Navigate to Home using pushReplacement (T010)
-      Navigator.pushReplacementNamed(context, AppRoutes.home);
+      if (mounted) {
+        Navigator.pushReplacementNamed(context, AppRoutes.home);
+      }
     } else {
       _showError('Acesso negado');
     }

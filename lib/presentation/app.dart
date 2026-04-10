@@ -5,7 +5,13 @@ import 'routes.dart';
 /// The root widget of the GymLogger application.
 /// Configures MaterialApp with the custom dark theme and named route mapping.
 class GymLoggerApp extends StatelessWidget {
-  const GymLoggerApp({super.key});
+  /// The initial route of the application determined at startup.
+  final String initialRoute;
+
+  const GymLoggerApp({
+    super.key,
+    required this.initialRoute,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +23,7 @@ class GymLoggerApp extends StatelessWidget {
       theme: AppTheme.darkTheme,
       
       // Navigation Configuration (Navigator 1.0)
-      initialRoute: AppRoutes.root,
+      initialRoute: initialRoute,
       routes: AppRoutes.routes,
     );
   }
