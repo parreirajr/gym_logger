@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:gym_logger/domain/models/workout_model.dart';
 import 'package:gym_logger/presentation/pages/home_page.dart';
-import 'package:gym_logger/presentation/widgets/workout_tile.dart';
+import 'package:gym_logger/presentation/organisms/workout_card.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 void main() {
@@ -37,7 +37,7 @@ void main() {
 
         expect(find.text('Nenhum treino registrado ainda.'), findsOneWidget);
         expect(find.text('Toque no botão + para começar.'), findsOneWidget);
-        expect(find.byType(WorkoutTile), findsNothing);
+        expect(find.byType(WorkoutCard), findsNothing);
       },
     );
 
@@ -65,7 +65,7 @@ void main() {
         await tester.tap(find.text('Save'));
         await tester.pumpAndSettle();
 
-        expect(find.byType(WorkoutTile), findsOneWidget);
+        expect(find.byType(WorkoutCard), findsOneWidget);
         expect(find.text('Supino Reto'), findsOneWidget);
       },
     );
@@ -100,7 +100,7 @@ void main() {
           await tester.pumpAndSettle();
         }
 
-        expect(find.byType(WorkoutTile), findsNWidgets(3));
+        expect(find.byType(WorkoutCard), findsNWidgets(3));
       },
     );
 
@@ -126,13 +126,13 @@ void main() {
       await tester.tap(find.text('Save'));
       await tester.pumpAndSettle();
 
-      expect(find.byType(WorkoutTile), findsOneWidget);
+      expect(find.byType(WorkoutCard), findsOneWidget);
 
       // Tap delete button (text matches WorkoutTile's delete button)
       await tester.tap(find.text('Excluir'));
       await tester.pump();
 
-      expect(find.byType(WorkoutTile), findsNothing);
+      expect(find.byType(WorkoutCard), findsNothing);
     });
 
     testWidgets(
@@ -174,7 +174,7 @@ void main() {
         await tester.pumpAndSettle();
 
         // 5. Verify update (should be 1 tile with new name)
-        expect(find.byType(WorkoutTile), findsOneWidget);
+        expect(find.byType(WorkoutCard), findsOneWidget);
         expect(find.text('Supino Inclinado'), findsOneWidget);
         expect(find.text('Supino Reto'), findsNothing);
       },

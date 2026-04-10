@@ -5,7 +5,7 @@ import 'package:gym_logger/presentation/app.dart';
 void main() {
   testWidgets('Initial route displays LoginPage', (WidgetTester tester) async {
     // Build our app and trigger a frame.
-    await tester.pumpWidget(const GymLoggerApp());
+    await tester.pumpWidget(const GymLoggerApp(initialRoute: '/'));
 
     // Verify that the app title 'GymLogger' is present.
     expect(find.text('GymLogger'), findsOneWidget);
