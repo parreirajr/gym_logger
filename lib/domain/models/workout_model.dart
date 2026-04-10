@@ -39,6 +39,16 @@ class Workout {
     };
   }
 
+  /// Creates a [Workout] from a database map.
+  factory Workout.fromMap(Map<String, dynamic> map) {
+    return Workout.fromJson(map);
+  }
+
+  /// Converts this [Workout] to a database map.
+  Map<String, dynamic> toMap() {
+    return toJson();
+  }
+
   /// Returns a copy of this [Workout] with the given fields replaced.
   Workout copyWith({
     String? id,
