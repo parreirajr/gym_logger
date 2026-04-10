@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import '../../data/services/auth_service.dart';
 import '../../domain/models/login_credentials.dart';
 import '../../domain/validators/login_validator.dart';
+import '../atoms/custom_button.dart';
+import '../atoms/custom_text.dart';
+import '../atoms/custom_text_field.dart';
 import '../routes.dart';
-import '../widgets/custom_button.dart';
-import '../widgets/custom_text_field.dart';
 
 /// The entry page of the GymLogger application.
 /// Manages user authentication state and navigation (Constitution Rule II).
@@ -16,11 +17,11 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  // Input controllers (T007)
+  // Input controllers
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
-  bool _isLoading = false;
+  final bool _isLoading = false;
 
   @override
   void dispose() {
@@ -29,12 +30,12 @@ class _LoginPageState extends State<LoginPage> {
     super.dispose();
   }
 
-  /// Handles the login action by invoking the validator and navigating on success (T009, T010).
+  /// Handles the login action by invoking the validator and navigating on success.
   void _handleLogin() async {
     final username = _usernameController.text;
     final password = _passwordController.text;
 
-    // Isolation of validation logic (T001 integration)
+    // Isolation of validation logic
     final error = LoginValidator.getErrorMessage(username, password);
 
     if (error != null) {
@@ -51,7 +52,7 @@ class _LoginPageState extends State<LoginPage> {
       // Success: Save session status before navigating
       await AuthService.setLoggedIn(true);
 
-      // Success: Navigate to Home using pushReplacement (T010)
+      // Success: Navigate to Home using pushReplacement
       if (mounted) {
         Navigator.pushReplacementNamed(context, AppRoutes.home);
       }
@@ -60,7 +61,7 @@ class _LoginPageState extends State<LoginPage> {
     }
   }
 
-  /// Displays error feedback via SnackBar (T011).
+  /// Displays error feedback via SnackBar.
   void _showError(String message) {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
@@ -80,7 +81,7 @@ class _LoginPageState extends State<LoginPage> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              // Logo/Icon (T008)
+              // Logo/Icon
               Icon(
                 Icons.fitness_center,
                 size: 80,
@@ -88,9 +89,9 @@ class _LoginPageState extends State<LoginPage> {
               ),
               const SizedBox(height: 24),
 
-              // App Title (T008)
-              const Text(
-                'GymLogger',
+              // App Title (atom)
+              const CustomText(
+                text: 'GymLogger',
                 style: TextStyle(
                   fontSize: 32,
                   fontWeight: FontWeight.bold,
@@ -99,14 +100,15 @@ class _LoginPageState extends State<LoginPage> {
               ),
               const SizedBox(height: 8),
 
-              const Text(
-                'Registre seus treinos com facilidade.',
+              // Subtitle (atom)
+              const CustomText(
+                text: 'Registre seus treinos com facilidade.',
                 style: TextStyle(fontSize: 16, color: Colors.white70),
                 textAlign: TextAlign.center,
               ),
               const SizedBox(height: 48),
 
-              // Username Field (T103 integration)
+              // Username Field (atom)
               CustomTextField(
                 controller: _usernameController,
                 label: 'Usuário',
@@ -114,7 +116,7 @@ class _LoginPageState extends State<LoginPage> {
                 keyboardType: TextInputType.emailAddress,
               ),
 
-              // Password Field (T103 integration)
+              // Password Field (atom)
               CustomTextField(
                 controller: _passwordController,
                 label: 'Senha',
@@ -123,7 +125,7 @@ class _LoginPageState extends State<LoginPage> {
               ),
               const SizedBox(height: 24),
 
-              // Login Button (T104 integration)
+              // Login Button (atom)
               CustomButton(
                 label: 'LOGIN',
                 isLoading: _isLoading,

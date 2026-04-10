@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../domain/models/workout_model.dart';
-import '../widgets/workout_tile.dart';
-import '../widgets/delete_confirmation_dialog.dart';
+import '../organisms/workout_list.dart';
+import '../organisms/delete_confirmation_dialog.dart';
 import '../routes.dart';
 import '../../data/repositories/workout_repository.dart';
 import '../../data/services/auth_service.dart';
@@ -10,6 +10,7 @@ import '../../data/services/auth_service.dart';
 ///
 /// Displays a scrollable list of recorded workouts stored in SQLite.
 /// Exposes actions to add (FAB), edit, and delete individual entries.
+/// Delegates all list/card rendering to the [WorkoutList] organism.
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
@@ -188,55 +189,17 @@ class _HomePageState extends State<HomePage> {
           ? const Center(
               child: CircularProgressIndicator(color: Color(0xFF7C4DFF)),
             )
-          : (_workouts.isEmpty ? _buildEmptyState() : _buildWorkoutList()),
+          : WorkoutList(
+              workouts: _workouts,
+              onEdit: _editWorkout,
+              onDelete: _deleteWorkout,
+            ),
       floatingActionButton: FloatingActionButton(
         onPressed: _navigateToCreateForm,
         backgroundColor: const Color(0xFF7C4DFF),
         tooltip: 'Adicionar treino',
         child: const Icon(Icons.add_rounded, color: Colors.white, size: 28),
       ),
-    );
-  }
-
-  /// Renders the empty state when no workouts are recorded.
-  Widget _buildEmptyState() {
-    return const Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Icon(Icons.list_alt_rounded, size: 100, color: Colors.white24),
-          SizedBox(height: 24),
-          Text(
-            'Nenhum treino registrado ainda.',
-            style: TextStyle(
-              fontSize: 18,
-              color: Colors.white54,
-              fontWeight: FontWeight.w500,
-            ),
-          ),
-          SizedBox(height: 8),
-          Text(
-            'Toque no botão + para começar.',
-            style: TextStyle(fontSize: 14, color: Colors.white38),
-          ),
-        ],
-      ),
-    );
-  }
-
-  /// Renders the scrollable list of [WorkoutTile] items.
-  Widget _buildWorkoutList() {
-    return ListView.builder(
-      padding: const EdgeInsets.symmetric(vertical: 12),
-      itemCount: _workouts.length,
-      itemBuilder: (context, index) {
-        final workout = _workouts[index];
-        return WorkoutTile(
-          workout: workout,
-          onEdit: () => _editWorkout(workout),
-          onDelete: () => _deleteWorkout(workout.id),
-        );
-      },
     );
   }
 }
