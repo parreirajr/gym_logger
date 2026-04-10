@@ -3,7 +3,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../../domain/models/workout_model.dart';
 
 /// Service responsible for persisting workout records using shared_preferences.
-/// 
+///
 /// Follows the Gym Logger constitution:
 /// - JSON serialization for storage.
 /// - Single responsibility for persistence.

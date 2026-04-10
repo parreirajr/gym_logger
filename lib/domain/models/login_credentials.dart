@@ -3,17 +3,11 @@ class LoginCredentials {
   final String username;
   final String password;
 
-  const LoginCredentials({
-    required this.username,
-    required this.password,
-  });
+  const LoginCredentials({required this.username, required this.password});
 
   /// Mandatory conversion to JSON for potential persistence (Constitution Rule V).
   Map<String, dynamic> toJson() {
-    return {
-      'username': username,
-      'password': password,
-    };
+    return {'username': username, 'password': password};
   }
 
   /// Mandatory conversion from JSON (Constitution Rule V).

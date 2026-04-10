@@ -11,12 +11,12 @@ class WorkoutFormPage extends StatefulWidget {
 
 class _WorkoutFormPageState extends State<WorkoutFormPage> {
   final _formKey = GlobalKey<FormState>();
-  
+
   // Controllers for form fields
   late final TextEditingController _exerciseController;
   late final TextEditingController _loadController;
   late final TextEditingController _repsController;
-  
+
   // Local state for date and the workout being edited (if any)
   DateTime _selectedDate = DateTime.now();
   Workout? _existingWorkout;
@@ -33,7 +33,7 @@ class _WorkoutFormPageState extends State<WorkoutFormPage> {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    
+
     // Extract existing workout from route arguments (Edition Mode)
     if (!_isInitialized) {
       final args = ModalRoute.of(context)?.settings.arguments;
@@ -76,13 +76,15 @@ class _WorkoutFormPageState extends State<WorkoutFormPage> {
     if (_formKey.currentState!.validate()) {
       final workout = Workout(
         // Retain ID if editing, otherwise generate a new one
-        id: _existingWorkout?.id ?? DateTime.now().millisecondsSinceEpoch.toString(),
+        id:
+            _existingWorkout?.id ??
+            DateTime.now().millisecondsSinceEpoch.toString(),
         exerciseName: _exerciseController.text.trim(),
         load: double.parse(_loadController.text),
         repetitions: int.parse(_repsController.text),
         date: _selectedDate,
       );
-      
+
       Navigator.pop(context, workout);
     }
   }
@@ -90,11 +92,9 @@ class _WorkoutFormPageState extends State<WorkoutFormPage> {
   @override
   Widget build(BuildContext context) {
     final isEditing = _existingWorkout != null;
-    
+
     return Scaffold(
-      appBar: AppBar(
-        title: Text(isEditing ? 'EDITAR TREINO' : 'NOVO TREINO'),
-      ),
+      appBar: AppBar(title: Text(isEditing ? 'EDITAR TREINO' : 'NOVO TREINO')),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(20),
         child: Form(
@@ -126,11 +126,15 @@ class _WorkoutFormPageState extends State<WorkoutFormPage> {
                         _buildLabel('Carga (kg)'),
                         TextFormField(
                           controller: _loadController,
-                          keyboardType: const TextInputType.numberWithOptions(decimal: true),
+                          keyboardType: const TextInputType.numberWithOptions(
+                            decimal: true,
+                          ),
                           decoration: _buildInputDecoration('0.0'),
                           validator: (value) {
-                            if (value == null || value.isEmpty) return 'Obrigatório';
-                            if (double.tryParse(value) == null) return 'Inválido';
+                            if (value == null || value.isEmpty)
+                              return 'Obrigatório';
+                            if (double.tryParse(value) == null)
+                              return 'Inválido';
                             if (double.parse(value) <= 0) return '> 0';
                             return null;
                           },
@@ -149,7 +153,8 @@ class _WorkoutFormPageState extends State<WorkoutFormPage> {
                           keyboardType: TextInputType.number,
                           decoration: _buildInputDecoration('0'),
                           validator: (value) {
-                            if (value == null || value.isEmpty) return 'Obrigatório';
+                            if (value == null || value.isEmpty)
+                              return 'Obrigatório';
                             if (int.tryParse(value) == null) return 'Inválido';
                             if (int.parse(value) <= 0) return '> 0';
                             return null;
@@ -168,7 +173,10 @@ class _WorkoutFormPageState extends State<WorkoutFormPage> {
                 onTap: () => _selectDate(context),
                 borderRadius: BorderRadius.circular(12),
                 child: Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 16,
+                    vertical: 16,
+                  ),
                   decoration: BoxDecoration(
                     color: const Color(0xFF1E1E1E),
                     borderRadius: BorderRadius.circular(12),
@@ -180,7 +188,10 @@ class _WorkoutFormPageState extends State<WorkoutFormPage> {
                         '${_selectedDate.day.toString().padLeft(2, '0')}/${_selectedDate.month.toString().padLeft(2, '0')}/${_selectedDate.year}',
                         style: const TextStyle(fontSize: 16),
                       ),
-                      const Icon(Icons.calendar_today_rounded, color: Colors.white70),
+                      const Icon(
+                        Icons.calendar_today_rounded,
+                        color: Colors.white70,
+                      ),
                     ],
                   ),
                 ),

@@ -6,10 +6,12 @@ import 'package:gym_logger/presentation/pages/home_page.dart';
 import 'package:gym_logger/presentation/pages/login_page.dart';
 
 void main() {
-  testWidgets('should redirect to LoginPage when Logout button is clicked', (WidgetTester tester) async {
+  testWidgets('should redirect to LoginPage when Logout button is clicked', (
+    WidgetTester tester,
+  ) async {
     // 1. Initial State: Logged In
     SharedPreferences.setMockInitialValues({'is_logged': true});
-    
+
     // 2. Start at Home
     await tester.pumpWidget(const GymLoggerApp(initialRoute: '/home'));
     await tester.pumpAndSettle();
@@ -19,7 +21,7 @@ void main() {
     // 3. Find and Click Logout Button
     final logoutButton = find.byIcon(Icons.logout_rounded);
     expect(logoutButton, findsOneWidget);
-    
+
     await tester.tap(logoutButton);
     await tester.pumpAndSettle();
 

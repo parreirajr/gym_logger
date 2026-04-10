@@ -19,7 +19,7 @@ class _LoginPageState extends State<LoginPage> {
   // Input controllers (T007)
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-  
+
   bool _isLoading = false;
 
   @override
@@ -42,8 +42,11 @@ class _LoginPageState extends State<LoginPage> {
       return;
     }
 
-    final credentials = LoginCredentials(username: username, password: password);
-    
+    final credentials = LoginCredentials(
+      username: username,
+      password: password,
+    );
+
     if (LoginValidator.validate(credentials)) {
       // Success: Save session status before navigating
       await AuthService.setLoggedIn(true);
@@ -84,7 +87,7 @@ class _LoginPageState extends State<LoginPage> {
                 color: Theme.of(context).colorScheme.primary,
               ),
               const SizedBox(height: 24),
-              
+
               // App Title (T008)
               const Text(
                 'GymLogger',
@@ -95,13 +98,10 @@ class _LoginPageState extends State<LoginPage> {
                 ),
               ),
               const SizedBox(height: 8),
-              
+
               const Text(
                 'Registre seus treinos com facilidade.',
-                style: TextStyle(
-                  fontSize: 16,
-                  color: Colors.white70,
-                ),
+                style: TextStyle(fontSize: 16, color: Colors.white70),
                 textAlign: TextAlign.center,
               ),
               const SizedBox(height: 48),

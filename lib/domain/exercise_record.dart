@@ -60,21 +60,21 @@ class ExerciseRecord {
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
-  
+
     return other is ExerciseRecord &&
-      other.id == id &&
-      other.exercise == exercise &&
-      other.loadKg == loadKg &&
-      other.repetitions == repetitions &&
-      other.date == date;
+        other.id == id &&
+        other.exercise == exercise &&
+        other.loadKg == loadKg &&
+        other.repetitions == repetitions &&
+        other.date == date;
   }
 
   @override
   int get hashCode {
     return id.hashCode ^
-      exercise.hashCode ^
-      loadKg.hashCode ^
-      repetitions.hashCode ^
-      date.hashCode;
+        exercise.hashCode ^
+        loadKg.hashCode ^
+        repetitions.hashCode ^
+        date.hashCode;
   }
 }

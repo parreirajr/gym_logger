@@ -6,9 +6,11 @@ import 'package:gym_logger/presentation/pages/login_page.dart';
 
 void main() {
   group('Auth Redirection Widget Test', () {
-    testWidgets('should start on LoginPage when initialRoute is root', (WidgetTester tester) async {
+    testWidgets('should start on LoginPage when initialRoute is root', (
+      WidgetTester tester,
+    ) async {
       SharedPreferences.setMockInitialValues({'is_logged': false});
-      
+
       await tester.pumpWidget(const GymLoggerApp(initialRoute: '/'));
       await tester.pumpAndSettle();
 
@@ -16,9 +18,11 @@ void main() {
       expect(find.byType(HomePage), findsNothing);
     });
 
-    testWidgets('should start on HomePage when initialRoute is home', (WidgetTester tester) async {
+    testWidgets('should start on HomePage when initialRoute is home', (
+      WidgetTester tester,
+    ) async {
       SharedPreferences.setMockInitialValues({'is_logged': true});
-      
+
       await tester.pumpWidget(const GymLoggerApp(initialRoute: '/home'));
       await tester.pumpAndSettle();
 

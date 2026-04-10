@@ -8,20 +8,17 @@ class GymLoggerApp extends StatelessWidget {
   /// The initial route of the application determined at startup.
   final String initialRoute;
 
-  const GymLoggerApp({
-    super.key,
-    required this.initialRoute,
-  });
+  const GymLoggerApp({super.key, required this.initialRoute});
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'GymLogger',
-      
+
       // Theme Configuration (Material 3 Dark)
       theme: AppTheme.darkTheme,
-      
+
       // Navigation Configuration (Navigator 1.0)
       initialRoute: initialRoute,
       routes: AppRoutes.routes,

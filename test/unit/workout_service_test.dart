@@ -31,10 +31,13 @@ void main() {
       ),
     ];
 
-    test('loadWorkouts should return empty list when no data is saved', () async {
-      final workouts = await service.loadWorkouts();
-      expect(workouts, isEmpty);
-    });
+    test(
+      'loadWorkouts should return empty list when no data is saved',
+      () async {
+        final workouts = await service.loadWorkouts();
+        expect(workouts, isEmpty);
+      },
+    );
 
     test('saveWorkouts should persist data in SharedPreferences', () async {
       await service.saveWorkouts(testWorkouts);

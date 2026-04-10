@@ -13,11 +13,12 @@ class AppTheme {
     return ThemeData(
       useMaterial3: true,
       brightness: Brightness.dark,
-      
+
       // ColorScheme definition
       colorScheme: const ColorScheme.dark(
         primary: primaryColor,
-        secondary: primaryColor, // Using primary for secondary items as per palette focus
+        secondary:
+            primaryColor, // Using primary for secondary items as per palette focus
         surface: surfaceColor,
         onPrimary: Colors.white,
         onSurface: Colors.white,
@@ -47,9 +48,7 @@ class AppTheme {
           backgroundColor: primaryColor,
           foregroundColor: Colors.white,
           padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(8),
-          ),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
         ),
       ),
 

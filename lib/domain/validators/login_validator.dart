@@ -12,7 +12,7 @@ class LoginValidator {
     if (username.trim().isEmpty || password.trim().isEmpty) {
       return 'Usuário e senha são obrigatórios';
     }
-    
+
     if (username != 'admin' || password != '1234') {
       return 'Acesso negado';
     }

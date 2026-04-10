@@ -9,10 +9,10 @@ void main() {
 
     // Verify that the app title 'GymLogger' is present.
     expect(find.text('GymLogger'), findsOneWidget);
-    
+
     // Verify that the 'ENTRAR' button is present.
     expect(find.text('ENTRAR'), findsOneWidget);
-    
+
     // Verify that the fitness center icon is present.
     expect(find.byIcon(Icons.fitness_center), findsOneWidget);
   });
